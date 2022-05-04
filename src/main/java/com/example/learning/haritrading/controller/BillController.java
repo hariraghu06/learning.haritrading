@@ -21,6 +21,7 @@ public class BillController {
 
     @GetMapping("/token")
     public String generateToken() {
+        log.info("testgit");
         return Jwts.builder().setSubject("hello" + UUID.randomUUID()).compact();
     }
 
