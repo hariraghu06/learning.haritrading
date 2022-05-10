@@ -7,6 +7,7 @@ import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Base64;
 import java.util.UUID;
 
@@ -65,14 +66,16 @@ public class BillController {
             long billBalance = bill.getBalance();
             long updatedReceipt = bill.getReceipt() - receipt;
             long updatedBalance = billBalance - receipt;
-            bill.setBalance(updatedBalance);
-            bill.setReceipt(updatedReceipt);
-            billRepository.save(bill);
-            message="Bill number: " +billNo +" Updated Successfully" + bill;
+            if (updatedBalance >0 ){
+                bill.setBalance(updatedBalance);
+                bill.setReceipt(updatedReceipt);
+                billRepository.save(bill);
+                message="Bill number: " +billNo +" Updated Successfully" + bill;
+            }else message = "Bill Balance Cannot be less than 0";
+
         }
         catch (Exception e ){
             message= e + "  Something Wrong ";
-
         }
         return  message;
     }
