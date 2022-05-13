@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface BillRepository extends CrudRepository<BillDetails,Long> {
 
-    Optional<BillDetails> findByBillNo(long l);
+    Optional<BillDetails> findByBillNo(int l);
 }

@@ -8,11 +8,11 @@ import lombok.Setter;
 @Setter
 public class BillInput {
     @JsonProperty("bill_number")
-    private long billNo ;
+    private int billNo ;
 
     @JsonProperty
-    private long billValue;
+    private int billValue;
 
     @JsonProperty
-    private long receipt;
+    private int receipt;
 }

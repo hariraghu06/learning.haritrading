@@ -14,15 +14,15 @@ import javax.persistence.*;
 @Table(name = "BILL_DETAILS" )
 public class BillDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long slNo;
 
     @Column(unique = true)
-    private Long billNo;
+    private int billNo;
     @Column
-    private Long billValue;
+    private int billValue;
     @Column
-    private Long Receipt;
+    private int receipt;
     @Column
-    private Long balance;
+    private int balance;
 }
