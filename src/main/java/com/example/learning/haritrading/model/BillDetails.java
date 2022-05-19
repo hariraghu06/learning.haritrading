@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "BILL_DETAILS" )
+@Table(name = "BILL_DETAILS")
 public class BillDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +19,9 @@ public class BillDetails {
 
     @Column(unique = true)
     private int billNo;
+    @Column
+    public Long customerId;
+
     @Column
     private int billValue;
     @Column

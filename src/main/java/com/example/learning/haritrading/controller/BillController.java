@@ -1,11 +1,12 @@
 package com.example.learning.haritrading.controller;
 
 import com.example.learning.haritrading.model.BillDetails;
-import com.example.learning.haritrading.model.BillInput;
 import com.example.learning.haritrading.repository.BillRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/payment")
@@ -21,16 +22,17 @@ public class BillController {
         return billDetails;
     }
 
+    @GetMapping("/getBill/{billno}")
+    public Optional<BillDetails> getBillNo(@PathVariable Integer billno) {
+        Optional<BillDetails> billDetails = billRepository.findByBillNo(billno);
+        return billDetails;
+    }
+
     @PostMapping("/newBill")
-    public String updateNewBill(@RequestBody BillInput billInput) {
+    public String updateNewBill(@RequestBody BillDetails billInput) {
         String message;
-        BillDetails newBill = new BillDetails();
-        newBill.setReceipt(0);
-        newBill.setBillNo(billInput.getBillNo());
-        newBill.setBillValue(billInput.getBillValue());
-        newBill.setBalance(billInput.getBillValue());
         try {
-            billRepository.save(newBill);
+            billRepository.save(billInput);
             message = "Save successful";
         } catch (Exception e) {
             message = "Bill Number : " + billInput.getBillNo() + " Already Exits ";
@@ -39,7 +41,7 @@ public class BillController {
     }
 
     @PutMapping("/oldBill")
-    public String updateOldBill(@RequestBody BillInput billInput) {
+    public String updateOldBill(@RequestBody BillDetails billInput) {
         String message;
         int billNo = billInput.getBillNo();
         int receipt = billInput.getReceipt();
